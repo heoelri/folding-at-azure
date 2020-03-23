@@ -8,6 +8,13 @@
 #fahteam -> team-id for folding@home
 #fahuser -> user-id for folding@home
 
+# Wait till APT and DPKG is available and free
+echo "Waiting for DPKG/APT to be free.."
+while sudo fuser /var/{lib/{dpkg,apt/lists},cache/apt/archives}/lock >/dev/null 2>&1; do
+  echo "."
+  sleep 5
+done
+
 sudo apt-get -y update       
 sudo apt-get -y upgrade  
 sudo apt -y install libmicrohttpd-dev libssl-dev cmake build-essential libhwloc-dev leafpad git xauth unzip mono-mcs
